@@ -17,14 +17,14 @@ fastify.get('/posts', async (_: FastifyRequest, reply: FastifyReply) => {
 })
 
 fastify.get(
-  '/posts/:id',
+  '/posts/:slug',
   async (
-    request: FastifyRequest<{ Params: { id: string } }>,
+    request: FastifyRequest<{ Params: { slug: string } }>,
     reply: FastifyReply,
   ) => {
-    const { id } = request.params
+    const { slug } = request.params
 
-    const post = posts.find(p => p.id === Number(id))
+    const post = posts.find(p => p.slug === slug)
 
     if (!post) {
       return reply.status(404).send({ error: 'Post não encontrado' })
