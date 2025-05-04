@@ -1,8 +1,16 @@
 import Fastify, { FastifyReply, FastifyRequest } from 'fastify'
 
+import fastifyCors from '@fastify/cors'
+
 import { posts } from './posts'
 
 const fastify = Fastify({ logger: true })
+
+fastify.register(fastifyCors, {
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+})
 
 fastify.get('/posts', async (_: FastifyRequest, reply: FastifyReply) => {
   reply.send(posts)
